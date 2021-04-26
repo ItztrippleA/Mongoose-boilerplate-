@@ -19,16 +19,32 @@ const fruitsSchema = new mongoose.Schema({
   review: String,
 });
 
+const personSchema = new mongoose.Schema({
+  name: String,
+  age: Number,
+  favouriteFruits: fruitsSchema,
+});
+
 //create a model of the schema or collection
 const Fruit = mongoose.model("Fruit", fruitsSchema);
 
-// creating multiple objects in the collections
+const Person = mongoose.model("Person", personSchema);
 
+// creating multiple objects in the collections
 const banana = new Fruit({
   name: "banana",
   rating: 10,
   review: "pretty solid",
 });
+
+const person = new Person({
+  name: "Abdullahi Adam",
+  age: 13,
+  favouriteFruits: banana,
+});
+
+banana.save();
+person.save();
 
 // const orange = new Fruit({ name: "Orange", rating: 10, review: "e try small" });
 // const mango = new Fruit({ name: "Mango", rating: 7, review: "e no dey" });
@@ -42,20 +58,6 @@ const banana = new Fruit({
 //     console.log("successfully updated the collection");
 //   }
 // });
-
-const personSchema = new mongoose.Schema({
-  name: String,
-  age: Number,
-});
-
-const Person = mongoose.model("Person", personSchema);
-
-const person = new Person({
-  name: "Abdullahi Adam",
-  age: 13,
-});
-// person.save();
-banana.save();
 
 //update an object in a collection
 //takes in a condition then a the parameter to update, and a callback function
@@ -82,13 +84,13 @@ banana.save();
 // });
 
 //delete multiple objects in a collection
-Person.deleteMany({ name: "Abdullahi Adam" }, function (err) {
-  if (err) {
-    console.log(err);
-  } else {
-    console.log("successfully deleted");
-  }
-});
+// Person.deleteMany({ name: "Abdullahi Adam" }, function (err) {
+//   if (err) {
+//     console.log(err);
+//   } else {
+//     console.log("successfully deleted");
+//   }
+// });
 
 //retrieve data from a collection in database fruitsDB
 // Fruit.find((err, fruits) => {
